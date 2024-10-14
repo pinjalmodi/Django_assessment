@@ -1,1 +1,1 @@
-# Django_assessment
+# Django_assessmentThis repository includes a project which is about institute management system. It has admin,student and teacher as users. Admin can add,update,select and delete : Students,Teachers,Clubs and Books.
