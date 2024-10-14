@@ -1,0 +1,94 @@
+{% extends 'header.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">  <!-- Add your stylesheet here -->
+</head>
+<body>
+<div class="container">
+    <h2>Profile</h2>
+        {% if msg %}
+    <b style="color: blue;">{{msg}}</b>
+
+        {% endif %}
+    <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>
+                    <label for="usertype">User Type:</label>
+                    
+                    <select id="usertype" name="usertype" required>
+                        {% if user.usertype == 'student' %}
+                        <option value="student" selected>Student</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="admin">Admin</option>
+                        {% elif user.usertype == 'teacher' %}
+                        <option value="student">Student</option>
+                        <option value="teacher" selected>Teacher</option>
+                        <option value="admin">Admin</option>
+                        {% elif user.usertype == 'admin' %}
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="admin" selected>Admin</option>
+                        {% endif %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="fname">First Name:</label>
+                    <input type="text" id="fname" name="fname" value="{{ user.fname }}" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="lname">Last Name:</label>
+                    <input type="text" id="lname" name="lname" value="{{ user.lname }}" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="{{ user.email }}" required readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="mobile">Mobile Number:</label>
+                    <input type="tel" id="mobile" name="mobile" value="{{ user.mobile }}" required pattern="[0-9]{10}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" rows="4" required>{{ user.address }}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="{{user.profile_picture.url}}" style="width: 100px; height: 100px; border-radius: 50%;" >
+                </td>
+            </tr>  
+            <tr>
+                <td>
+                    <label for="profile_picture">Profile Picture:</label>
+                    <input type="file" id="profile_picture" name="profile_picture" value="profile_picture">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Update profile">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

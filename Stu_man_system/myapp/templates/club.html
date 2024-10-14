@@ -1,0 +1,43 @@
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Club Registration</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">  <!-- Add your stylesheet here -->
+</head>
+<body>
+<div class="container">
+    <h2>Club Register</h2>
+        {% if msg %}
+    <b style="color: blue;">{{msg}}</b>
+
+        {% endif %}
+    <form action="{% url 'club' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            
+            <tr>
+                <td>
+                    <label for="cname">Club Name:</label>
+                    <input type="text" id="cname" name="cname" value="{{club.club_name}}">
+                </td>
+            </tr>
+            
+            
+            
+            <tr><td>
+                <input type="hidden" id="ax" name="ax" value="">
+                <button type="submit" onclick="document.getElementById('ax').value='add';" class="btn btn-primary" >Add</button>
+                <button type="submit" onclick="document.getElementById('ax').value='select';" class="btn btn-primary" >Select</button>
+                <button type="submit" onclick="document.getElementById('ax').value='delete';" class="btn btn-primary" >Delete</button>
+            </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

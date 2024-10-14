@@ -1,0 +1,4 @@
+* text=auto
+*.po text eol=lf
+*.py text eol=lf
+
